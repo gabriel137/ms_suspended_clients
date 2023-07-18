@@ -1,4 +1,4 @@
-# MsClientsApi
+# Ms Suspended Clients Api
 
 To start the project by Docker
 
