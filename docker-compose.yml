@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  ms_suspended_clients:
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      target: build
+      args:
+        MIX_ENV: prod
+    container_name: ms_suspended_clients
+    command: iex -S mix phx.server
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+      - "4001:4001"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      - ms_suspended_clients
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "10"
+
+  db:
+    image: postgres:latest
+    container_name: ms_suspended_clients_db
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: ms_suspended_clients
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - ms_suspended_clients
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "10"
+
+networks:
+  ms_suspended_clients:
+    name: ms_suspended_clients
+
+volumes:
+  postgres_data:

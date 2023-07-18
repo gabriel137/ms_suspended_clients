@@ -1,0 +1,6 @@
+/_build/
+/deps/
+/.env/
+/priv/static/
+/priv/uploads/
+/.elixir_ls/
