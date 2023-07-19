@@ -2,13 +2,13 @@ import Config
 
 # Configure your database
 config :ms_clients_api, MsClientsApi.Repo,
-  username: "admin",
-  password: "admin",
-  hostname: "db",
-  database: "ms_suspended_clients",
+  username: System.get_env("DATABASE_USER", "admin"),
+  password: System.get_env("DATABASE_PASS", "admin"),
+  hostname: System.get_env("DATABASE_ENDPOINT", "db"),
+  database: System.get_env("DATABASE_DATABASE", "ms_suspended_clients"),
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  pool_size: System.get_env("DATABASE_DATABASE", 10)
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
