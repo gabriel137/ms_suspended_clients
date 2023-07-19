@@ -1,5 +1,6 @@
 defmodule MsClientsApiWeb.ClientController do
   use MsClientsApiWeb, :controller
+  use OpenApiSpex.ControllerSpecs
 
   alias MsClientsApi.Clients
   alias MsClientsApi.Clients.Client
@@ -24,6 +25,20 @@ defmodule MsClientsApiWeb.ClientController do
     client = Clients.get_client!(id)
     render(conn, :show, client: client)
   end
+
+
+  tags ["clients"]
+  security [%{}, %{"petstore_auth" => ["write:users", "read:users"]}]
+
+  operation :update,
+    summary: "Update client",
+    parameters: [
+      id: [in: :path, description: "Client ID", type: :integer, example: 1001]
+    ],
+    request_body: {"Client params", "application/json", Client},
+    responses: [
+      ok: {"Client response", "application/json", ClientResponse}
+    ]
 
   def update(conn, %{"id" => id, "client" => client_params}) do
     client = Clients.get_client!(id)

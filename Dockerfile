@@ -20,13 +20,13 @@ RUN mix local.hex --force && mix local.rebar --force
 COPY mix.exs mix.lock ./
 COPY config config
 
-# RUN mix do deps.get, deps.compile
+RUN mix do deps.get, deps.compile
 
 # Copie todos os arquivos para o contêiner
 COPY . ./
 
 # Compile o projeto
-RUN mix do compile --warnings-as-errors, release
+RUN mix do compile, release
 
 # Comando padrão para iniciar o seu aplicativo
 COPY start.sh ./

@@ -5,10 +5,22 @@ defmodule MsClientsApiWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :api_swagger do
+    plug :accepts, ["json"]
+    plug OpenApiSpex.Plug.PutApiSpec, module: MsClientsApiWeb.ApiSpec
+  end
+
   scope "/api", MsClientsApiWeb do
     pipe_through :api
 
     resources "/clients", ClientController, except: [:new, :edit]
+    get "/swaggerui", OpenApiSpex.Plug.SwaggerUI, path: "/v1/openapi"
+  end
+
+  scope "/v1" do
+    pipe_through :api_swagger
+
+    get "/openapi", OpenApiSpex.Plug.RenderSpec, []
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

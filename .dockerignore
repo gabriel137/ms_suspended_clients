@@ -1,0 +1,8 @@
+# Elixir folders
+/_build/
+/deps/
+/.elixir_ls/
+
+# Git files
+/**/.git
+/.github/
