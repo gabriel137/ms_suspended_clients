@@ -16,6 +16,7 @@ defmodule MsClientsApi.Clients.Client do
 
   @doc false
   def changeset(client, attrs) do
+    client = []
     client
     |> cast(attrs, @required ++ @optional)
     |> validate_required(@required)
