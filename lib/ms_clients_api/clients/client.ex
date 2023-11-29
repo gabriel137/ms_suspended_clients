@@ -16,9 +16,15 @@ defmodule MsClientsApi.Clients.Client do
 
   @doc false
   def changeset(client, attrs) do
-    client = []
-    sell = []
+    a = 1
 
+    if a == 1 do
+      IO.puts "OPA"
+    else if a == 2 do
+      IO.puts "OPA"
+    else if a == 3 do
+      IO.puts "OPA"
+    end
 
     client
     |> cast(attrs, @required ++ @optional)
