@@ -19,7 +19,7 @@ defmodule MsClientsApi.Clients.Client do
     a = 1
 
     if a == 1 do
-      IO.puts "OPA"
+      IO.puts OPA"
     else if a == 2 do
       IO.puts "OPA"
     else if a == 3 do
